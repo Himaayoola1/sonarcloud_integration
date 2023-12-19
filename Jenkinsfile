@@ -6,7 +6,7 @@ pipeline {
    stages{
     stage('CompileandRunSonarAnalysis') {
             steps {	
-		sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=tech365webapp -Dsonar.organization=tech365webapp -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=254a459ba65f0e4638b087116904f71411445d5f'
+		sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=haishat -Dsonar.organization=haishat -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=6ecc2d086da15d08fdc9f45078ebf3d5eebbcf49'
 			}
     }
 
@@ -23,7 +23,7 @@ stage('Build') {
             steps { 
                withDockerRegistry([credentialsId: "dockerlogin", url: ""]) {
                  script{
-                 app =  docker.build("tech365image")
+                 app =  docker.build("haishat_image")
                  }
                }
             }
@@ -33,7 +33,7 @@ stage('Build') {
             steps {
                 script{
 			
-                    docker.withRegistry("https://924338258393.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") 
+                    docker.withRegistry("https://543327957495.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:aws-credentials") 
 			{
                     app.push("latest")
                     }
